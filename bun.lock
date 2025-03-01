@@ -5,7 +5,6 @@
       "name": "nyanotes",
       "dependencies": {
         "@tanstack/react-query": "4",
-        "@vercel/postgres": "^0.10.0",
         "better-auth": "^1.1.21",
         "dotenv": "^16.4.7",
         "drizzle-orm": "^0.40.0",

@@ -11,11 +11,18 @@
   "dependencies": {
     "@tanstack/react-query": "4",
     "better-auth": "^1.1.21",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.40.0",
+    "lucide-react": "^0.477.0",
     "next": "15.2.0",
+    "next-themes": "^0.4.4",
+    "postgres": "^3.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -28,10 +35,5 @@
     "tailwindcss": "^4.0.9",
     "typescript": "^5.8.2"
   },
-  "trustedDependencies": [
-    "@biomejs/biome",
-    "bufferutil",
-    "esbuild",
-    "sharp"
-  ]
+  "trustedDependencies": ["@biomejs/biome", "bufferutil", "esbuild", "sharp"]
 }

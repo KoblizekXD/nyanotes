@@ -6,6 +6,7 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import TypingEffect from "@/components/typer";
 import { Notebook } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 const typingTexts = [
@@ -82,10 +83,19 @@ export default function Home() {
               alt="Testing"
               src={"/preview.svg"}
               fill
-              className="scale-125 hover:scale-150 cursor-pointer transition-transform"
+              className="scale-125 -rotate-[10deg] -translate-x-24 hover:scale-150 cursor-pointer transition-transform"
+            />
+            <Image
+              alt="Testing"
+              src={"/preview-2.svg"}
+              fill
+              className="scale-125 rotate-[10deg] translate-x-24 hover:scale-150 cursor-pointer transition-transform"
             />
           </div>
         </div>
+      </div>
+      <div className="mt-auto text-muted-foreground text-lg self-center mb-12">
+        Made with ❤️ by aa55h. Discover more at <Link className="text-blue-500" href="/about">here</Link>.
       </div>
     </main>
   );

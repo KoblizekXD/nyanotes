@@ -38,7 +38,7 @@ const TypingEffect = ({
       const timeout = setTimeout(() => {
         setDisplayedText((prev) => prev.slice(0, -1));
         setIndex((prev) => prev - 1);
-      }, speed);
+      }, speed / 2);
 
       return () => clearTimeout(timeout);
     } else if (isDeleting && index === 0) {

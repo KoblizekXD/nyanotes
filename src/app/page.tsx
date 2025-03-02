@@ -4,7 +4,7 @@ import DynamicCommand from "@/components/dynamic-command";
 import RoutingButton from "@/components/routing-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import TypingEffect from "@/components/typer";
-import { PawPrint } from "lucide-react";
+import { Notebook } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -33,7 +33,7 @@ export default function Home() {
       />
       <nav className="flex relative h-[20%] items-center border-b border-b-border p-2">
         <div className="flex text-[#3B82F6] items-center gap-x-2">
-          <PawPrint />
+          <Notebook />
           <span className="font-bold text-lg">Nya Notes</span>
         </div>
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
@@ -41,7 +41,8 @@ export default function Home() {
           onClick={() => {
             if (commandRef.current) commandRef.current.open();
           }}
-          className="border select-none w-[30%] flex items-center cursor-pointer p-1 rounded absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          className="border select-none w-[30%] flex items-center cursor-pointer p-1 rounded absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        >
           <span className="text-muted-foreground">Search...</span>
           <span className="bg-muted ml-auto border rounded font-mono p-1">
             ⌘ + K
@@ -69,7 +70,8 @@ export default function Home() {
             <RoutingButton
               variant={"secondary"}
               className="text-md w-fit"
-              href="/explore">
+              href="/explore"
+            >
               Browse
             </RoutingButton>
           </div>

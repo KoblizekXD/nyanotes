@@ -12,7 +12,7 @@ const jbrMono = JetBrains_Mono({
   weight: "variable",
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
-})
+});
 
 export const metadata: Metadata = {
   title: "NyaNotes",

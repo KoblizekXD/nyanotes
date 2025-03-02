@@ -35,7 +35,6 @@ const TypingEffect = ({
     if (!isDeleting && index === text.length) {
       setTimeout(() => setIsDeleting(true), delay);
     } else if (isDeleting && index > 0) {
-
       const timeout = setTimeout(() => {
         setDisplayedText((prev) => prev.slice(0, -1));
         setIndex((prev) => prev - 1);

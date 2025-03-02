@@ -10,6 +10,8 @@ import { useState } from "react";
 const typingTexts = [
   "Write easily with markdown",
   "Share your notes with friends",
+  "Attach tags for easy searching",
+  "Use it on any device",
 ];
 
 export default function Home() {
@@ -17,10 +19,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative flex flex-col">
-      <nav className="flex h-[20%] items-center border-b border-b-border p-2">
+      <nav className="flex relative h-[20%] items-center border-b border-b-border p-2">
         <div className="flex text-[#3B82F6] items-center gap-x-2">
           <PawPrint />
           <span className="font-bold text-lg">Nya Notes</span>
+        </div>
+        <div className="border  select-none w-[30%] flex items-center cursor-pointer p-1 rounded absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <span className="text-muted-foreground">Search...</span>
+          <span className="bg-muted ml-auto border rounded font-mono p-1">⌘ + K</span>
         </div>
         <div className="ml-auto flex items-center gap-x-2">
           <RoutingButton href="/get-started">Get started</RoutingButton>
@@ -28,8 +34,8 @@ export default function Home() {
         </div>
       </nav>
       <div className="absolute w-full px-48 flex left-1/2 top-1/2 -translate-1/2 -translate-y-1/2">
-        <div className="flex basis-1/2 flex-col gap-y-4">
-          <h1 className="text-7xl font-semibold">Nya Notes</h1>
+        <div className="flex justify-center basis-1/2 flex-col gap-y-4">
+          <h1 className="text-7xl font-mono font-semibold">Nya Notes</h1>
           <TypingEffect
             typingEnd={async () => {
               setIndex((prev) => (prev + 1) % typingTexts.length);
@@ -43,7 +49,7 @@ export default function Home() {
         </div>
         <div className="basis-1/2 w-fit flex justify-center items-center">
           <div className="relative flex items-center justify-center w-96 h-96">
-            <Image alt="Testing" src={"/preview.svg"} fill className="hover:scale-125 cursor-pointer transition-transform" />
+            <Image alt="Testing" src={"/preview.svg"} fill className="scale-125 hover:scale-150 cursor-pointer transition-transform" />
           </div>
         </div>
       </div>

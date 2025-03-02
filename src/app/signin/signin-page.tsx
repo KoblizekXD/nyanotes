@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import RoutingButton from "@/components/routing-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,44 +15,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
 
-const signupSchema = z
-  .object({
-    username: z
-      .string()
-      .min(3, "Username must be at least 3 characters")
-      .max(20, "Username must be less than 20 characters")
-      .regex(
-        /^[a-zA-Z0-9_]+$/,
-        "Username can only contain letters, numbers, and underscores"
-      ),
-    email: z.string().email("Invalid email address"),
-    password: z
-      .string()
-      .min(6, "Password must be at least 8 characters")
-      .max(100, "Password must be less than 100 characters"),
-    confirmPassword: z
-      .string()
-      .min(6, "Password must be at least 8 characters")
-      .max(100, "Password must be less than 100 characters"),
-  })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords do not match",
-        path: ["confirmPassword"],
-      });
-    }
-  });
+const signupSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z
+    .string()
+    .min(6, "Password must be at least 8 characters")
+    .max(100, "Password must be less than 100 characters"),
+});
 
-export function Signup() {
+export function Signin() {
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
   const theme = useTheme();
@@ -61,10 +36,8 @@ export function Signup() {
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -100,29 +73,12 @@ export function Signup() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-3 md:w-1/3 z-50 bg-background border p-3 rounded-md"
         >
-          <span className="font-semibold text-2xl">Create an account</span>
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem className="mt-4">
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={isPending}
-                    placeholder="Darnation"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <span className="font-semibold text-2xl">Login</span>
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mt-4">
                 <FormLabel>E-mail</FormLabel>
                 <FormControl>
                   <Input
@@ -148,23 +104,6 @@ export function Signup() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirm password</FormLabel>
-                <FormControl>
-                  <Input disabled={isPending} type="password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex gap-x-2 items-center">
-            <Checkbox required id="terms" />
-            <Label htmlFor="terms" className="text-muted-foreground">I agree to the terms and conditions</Label>
-          </div>
           <div className="flex items-center gap-x-2">
             <Button
               disabled={isPending}
@@ -172,11 +111,8 @@ export function Signup() {
               className="flex items-center"
             >
               {isPending && <Loader2 className="animate-spin" />}
-              Register!
+              Sign in
             </Button>
-            <RoutingButton type="button" variant={"secondary"} href="/signin">
-              Wait, I have an account!
-            </RoutingButton>
           </div>
         </form>
       </Form>

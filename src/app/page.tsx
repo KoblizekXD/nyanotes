@@ -4,6 +4,7 @@ import RoutingButton from "@/components/routing-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import TypingEffect from "@/components/typer";
 import { PawPrint } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const typingTexts = [
@@ -26,15 +27,25 @@ export default function Home() {
           <ThemeSwitcher />
         </div>
       </nav>
-      <div className="absolute left-1/2 top-1/2 -translate-1/2 -translate-y-1/2">
-        <h1 className="text-4xl font-extrabold">Nya Notes</h1>
-        <TypingEffect
-          typingEnd={async () => {
-            setIndex((prev) => (prev + 1) % typingTexts.length);
-          }}
-          className="text-xl"
-          text={typingTexts[index]}
-        />
+      <div className="absolute w-full px-48 flex left-1/2 top-1/2 -translate-1/2 -translate-y-1/2">
+        <div className="flex basis-1/2 flex-col gap-y-4">
+          <h1 className="text-7xl font-semibold">Nya Notes</h1>
+          <TypingEffect
+            typingEnd={async () => {
+              setIndex((prev) => (prev + 1) % typingTexts.length);
+            }}
+            className="text-2xl"
+            text={typingTexts[index]}
+          />
+          <RoutingButton className="text-md w-fit" href="/get-started">
+            Okay!
+          </RoutingButton>
+        </div>
+        <div className="basis-1/2 w-fit flex justify-center items-center">
+          <div className="relative flex items-center justify-center w-96 h-96">
+            <Image alt="Testing" src={"/preview.svg"} fill className="hover:scale-125 cursor-pointer transition-transform" />
+          </div>
+        </div>
       </div>
     </main>
   );

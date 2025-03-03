@@ -1,4 +1,13 @@
-import { boolean, date, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import {
+  boolean,
+  date,
+  pgEnum,
+  pgTable,
+  primaryKey,
+  text,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text().primaryKey(),
@@ -64,7 +73,7 @@ export const tagTypes = pgEnum("tag_type", [
 ]);
 
 export const tag = pgTable("tag", {
-  id: text().primaryKey(),
+  id: uuid().defaultRandom().primaryKey(),
   name: text().notNull(),
   tagType: tagTypes().notNull(),
   createdAt: date().defaultNow(),
@@ -73,49 +82,66 @@ export const tag = pgTable("tag", {
     .$onUpdate(() => Date()),
 });
 
+export const tagRelations = relations(tag, ({ many }) => ({
+  authors: many(authorToTags),
+  works: many(workToTags),
+}));
+
 export const author = pgTable("author", {
-  id: text().primaryKey(),
-  name: text(),
-  tags: text()
-    .array()
-    .references(() => tag.id),
-  notes: text()
-    .array()
-    .references(() => note.id),
-  createdAt: date().defaultNow(),
-  updatedAt: date()
-    .defaultNow()
-    .$onUpdate(() => Date()),
+  id: uuid().defaultRandom().primaryKey(),
+  name: text().notNull(),
 });
+
+export const authorRelations = relations(author, ({ many }) => ({
+  tags: many(authorToTags),
+}));
 
 export const work = pgTable("work", {
-  id: text().primaryKey(),
-  title: text(),
-  authors: text()
-    .array()
-    .references(() => author.id),
-  tags: text()
-    .array()
-    .references(() => tag.id),
-  notes: text()
-    .array()
-    .references(() => note.id),
+  id: uuid().defaultRandom().primaryKey(),
+  title: text().notNull(),
+  authorId: uuid("author_id").notNull().references(() => author.id),
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
     .$onUpdate(() => Date()),
 });
 
+export const workRelations = relations(work, ({ many }) => ({
+  tags: many(workToTags),
+}));
+
 export const note = pgTable("note", {
-  id: text().primaryKey(),
-  userId: text().references(() => user.id),
-  title: text(),
-  content: text(),
-  tags: text()
-    .array()
-    .references(() => tag.id),
+  id: uuid().defaultRandom().primaryKey(),
+  content: text().default(""),
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
     .$onUpdate(() => Date()),
 });
+
+export const noteRelations = relations(note, ({ one }) => ({
+  user: one(user),
+  work: one(work),
+}));
+
+export const authorToTags = pgTable("author_to_tags", {
+  authorId: uuid("author_id")
+    .notNull()
+    .references(() => author.id),
+  tagId: uuid("tag_id")
+    .notNull()
+    .references(() => tag.id),
+}, (t) => [
+  primaryKey({ columns: [t.authorId, t.tagId] }),
+]);
+
+export const workToTags = pgTable("work_to_tags", {
+  workId: uuid("work_id")
+    .notNull()
+    .references(() => work.id),
+  tagId: uuid("tag_id")
+    .notNull()
+    .references(() => tag.id),
+}, (t) => [
+  primaryKey({ columns: [t.workId, t.tagId] }),
+]);

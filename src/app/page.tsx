@@ -42,8 +42,8 @@ export default function Home() {
         }}
         ref={commandRef}
       />
-      <nav className="flex backdrop-blur-[1px] bg-background relative h-[20%] items-center border-b border-b-border p-2">
-        <div className="flex text-[#3B82F6] items-center gap-x-2">
+      <nav className="flex backdrop-blur-[1px] gap-x-2 bg-background relative h-[20%] items-center border-b border-b-border p-2">
+        <div className="hidden md:flex text-[#3B82F6] items-center gap-x-2">
           <Notebook />
           <span className="font-bold text-lg">Nya Notes</span>
         </div>
@@ -52,7 +52,7 @@ export default function Home() {
           onClick={() => {
             if (commandRef.current) commandRef.current.open();
           }}
-          className="border select-none w-[30%] flex items-center cursor-pointer p-1 rounded absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="border select-none md:w-[30%] w-full flex items-center cursor-pointer p-1 rounded md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
         >
           <span className="text-muted-foreground">Search...</span>
           <span className="bg-muted ml-auto border rounded font-mono p-1">
@@ -88,7 +88,7 @@ export default function Home() {
           </div>
         </div>
         <div className="basis-1/2 mt-24 w-fit flex justify-center items-center">
-          <div className="relative flex items-center justify-center w-96 h-96">
+          <div className="relative flex items-center justify-center w-48 h-48 md:w-96 md:h-96">
             <Image
               alt="Testing"
               src={"/preview.svg"}
@@ -99,7 +99,7 @@ export default function Home() {
               alt="Testing"
               src={"/preview-2.svg"}
               fill
-              className="lg:scale-125 rotate-[10deg] translate-x-24 lg:hover:scale-150 cursor-pointer transition-transform"
+              className="md:scale-100 lg:scale-125 rotate-[10deg] translate-x-24 lg:hover:scale-150 cursor-pointer transition-transform"
             />
           </div>
         </div>

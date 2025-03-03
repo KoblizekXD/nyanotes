@@ -7,6 +7,7 @@ import { z } from "zod";
 import RoutingButton from "@/components/routing-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -17,11 +18,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authClient } from "@/lib/auth-client";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { toast } from "sonner";
 
 const signupSchema = z
   .object({
@@ -73,7 +75,21 @@ export function Signup() {
   }, []);
 
   function onSubmit(values: z.infer<typeof signupSchema>) {
-    startTransition(() => {});
+    startTransition(async () => {
+      const { data, error } = await authClient.signUp.email({
+        email: values.email,
+        password: values.password,
+        name: values.username,
+      });
+
+      if (error) {
+        console.info("Could not sign up: ", error);
+        toast.error("Could not sign up.", {
+          position: "top-center",
+          description: error.message,
+        });
+      }
+    });
   }
 
   return (
@@ -163,7 +179,9 @@ export function Signup() {
           />
           <div className="flex gap-x-2 items-center">
             <Checkbox required id="terms" />
-            <Label htmlFor="terms" className="text-muted-foreground">I agree to the terms and conditions</Label>
+            <Label htmlFor="terms" className="text-muted-foreground">
+              I agree to the terms and conditions
+            </Label>
           </div>
           <div className="flex items-center gap-x-2">
             <Button

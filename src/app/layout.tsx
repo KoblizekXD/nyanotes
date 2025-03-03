@@ -1,7 +1,8 @@
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -31,7 +32,9 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange>
+          disableTransitionOnChange
+        >
+          <Toaster richColors />
           {children}
         </ThemeProvider>
       </body>

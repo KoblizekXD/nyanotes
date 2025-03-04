@@ -22,18 +22,18 @@ export function Navbar() {
         ref={ref}
       />
       <SidebarTrigger />
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-      <div
-        onClick={() => ref.current?.open()}
-        className="border gap-x-2 px-2 p-1 w-full md:w-1/3 rounded-md cursor-pointer flex items-center"
-      >
-        <Search size={18} className="text-muted-foreground" />
-        <span className="text-muted-foreground text-sm">Search...</span>
-        <span className="bg-muted px-0.5 ml-auto border rounded font-mono">
-          ⌘ + K
-        </span>
-      </div>
-      <div className="ml-auto">
+      <div className="ml-auto w-full md:w-1/3 gap-x-2 flex items-center">
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+        <div
+          onClick={() => ref.current?.open()}
+          className="border gap-x-2 px-2 p-1 w-full rounded-md cursor-pointer flex items-center"
+        >
+          <Search size={18} className="text-muted-foreground" />
+          <span className="text-muted-foreground text-sm">Search...</span>
+          <span className="bg-muted text-muted-foreground px-0.5 ml-auto border rounded font-mono">
+            ⌘ + K
+          </span>
+        </div>
         <ThemeSwitcher />
       </div>
     </nav>

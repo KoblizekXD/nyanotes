@@ -5,17 +5,32 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
+  SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import {
   BadgeCheck,
   Bell,
   ChevronDown,
   ExternalLink,
+  Notebook,
   Settings,
   Sparkles,
+  Star,
+  StickyNote,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +42,8 @@ import {
 } from "./ui/dropdown-menu";
 
 export function AppSidebar() {
+  const router = useRouter();
+
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-sidebar-border">
@@ -91,9 +108,43 @@ export function AppSidebar() {
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup />
-        <SidebarGroup />
+      <SidebarContent className="p-1">
+        <SidebarGroup>
+          <SidebarGroupLabel>Me</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenuButton onClick={() => router.push("/home/posts")}>
+              <StickyNote />
+              Posts
+            </SidebarMenuButton>
+            <SidebarMenuButton onClick={() => router.push("/home/authors")}>
+              <Notebook />
+              Notes
+            </SidebarMenuButton>
+            <Collapsible defaultOpen>
+              <CollapsibleTrigger asChild>
+                <SidebarMenuButton
+                  onClick={() => router.push("/home/favorites")}
+                >
+                  <Star />
+                  Favorites
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton onClick={() => router.push("/home/favorites#posts")}>Posts</SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton onClick={() => router.push("/home/favorites#authors")}>Authors</SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton onClick={() => router.push("/home/favorites#notes")}>Notes</SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </CollapsibleContent>
+            </Collapsible>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter />
     </Sidebar>

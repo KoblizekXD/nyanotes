@@ -22,6 +22,7 @@ import { authClient } from "@/lib/auth-client";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -56,6 +57,7 @@ const signupSchema = z
   });
 
 export function Signup() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
   const theme = useTheme();
@@ -88,6 +90,11 @@ export function Signup() {
           position: "top-center",
           description: error.message,
         });
+      } else {
+        toast.success("Welcome to Nya Notes!", {
+          position: "top-center",
+        });
+        router.push("/getting-started");
       }
     });
   }

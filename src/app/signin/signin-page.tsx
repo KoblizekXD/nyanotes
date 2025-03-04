@@ -15,10 +15,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
+import { toast } from "sonner";
 
 const signupSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -29,6 +32,7 @@ const signupSchema = z.object({
 });
 
 export function Signin() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
   const theme = useTheme();
@@ -46,7 +50,24 @@ export function Signin() {
   }, []);
 
   function onSubmit(values: z.infer<typeof signupSchema>) {
-    startTransition(() => {});
+    startTransition(async () => {
+      const { data, error } = await authClient.signIn.email({
+        email: values.email,
+        password: values.password,
+      });
+      if (error) {
+        console.info("Could not sign up: ", error);
+        toast.error("Could not sign up.", {
+          position: "top-center",
+          description: error.message,
+        });
+      } else {
+        toast.success("Welcome to Nya Notes!", {
+          position: "top-center",
+        });
+        router.push("/getting-started");
+      }
+    });
   }
 
   return (

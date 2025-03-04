@@ -19,7 +19,7 @@ export const user = pgTable("user", {
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
-    .$onUpdate(() => Date()),
+    .$onUpdate(() => new Date().toISOString()),
 });
 
 export const session = pgTable("session", {
@@ -32,7 +32,7 @@ export const session = pgTable("session", {
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
-    .$onUpdate(() => Date()),
+    .$onUpdate(() => new Date().toISOString()),
 });
 
 export const account = pgTable("account", {
@@ -50,7 +50,7 @@ export const account = pgTable("account", {
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
-    .$onUpdate(() => Date()),
+    .$onUpdate(() => new Date().toISOString()),
 });
 
 export const verification = pgTable("verification", {
@@ -61,7 +61,7 @@ export const verification = pgTable("verification", {
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
-    .$onUpdate(() => Date()),
+    .$onUpdate(() => new Date().toISOString()),
 });
 
 export const tagTypes = pgEnum("tag_type", [
@@ -79,7 +79,7 @@ export const tag = pgTable("tag", {
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
-    .$onUpdate(() => Date()),
+    .$onUpdate(() => new Date().toISOString()),
 });
 
 export const tagRelations = relations(tag, ({ many }) => ({
@@ -103,7 +103,7 @@ export const work = pgTable("work", {
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
-    .$onUpdate(() => Date()),
+    .$onUpdate(() => new Date().toISOString()),
 });
 
 export const workRelations = relations(work, ({ many }) => ({
@@ -116,7 +116,7 @@ export const note = pgTable("note", {
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
-    .$onUpdate(() => Date()),
+    .$onUpdate(() => new Date().toISOString()),
 });
 
 export const noteRelations = relations(note, ({ one }) => ({

@@ -17,7 +17,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
 import { markOnboardingComplete } from "@/lib/actions/user";
+import { createAuthClient } from "better-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -41,7 +43,7 @@ export function Onboarding() {
       <div className="absolute left-1 top-1">
         <ThemeSwitcher />
       </div>
-      <div className="bg-background flex p-2 md:p-12 flex-col border rounded-xl w-[70%] h-[60%] md:h-[80%]">
+      <div className="bg-background flex p-2 md:p-12 flex-col border rounded-xl w-[90%] md:w-[70%] h-[60%] md:h-[80%]">
         <h1 className="font-semibold text-xl md:text-3xl">
           Let's finish setting up your account
         </h1>
@@ -167,34 +169,52 @@ export function Onboarding() {
   );
 }
 
+const { useSession } = createAuthClient();
+
 function Step1() {
+  const session = useSession();
+
   return (
     <div className="w-full h-full absolute">
-      <h1>Step 1</h1>
+      <h2 className="text-xl">Let's review your credentials</h2>
+      <div className="flex flex-col gap-y-2 mt-12">
+        <h3 className="font-semibold">Username</h3>
+        <Input
+          disabled
+          defaultValue={session.data?.user.name}
+          className="md:w-1/3"
+        />
+        <h3 className="font-semibold">E-mail</h3>
+        <Input
+          disabled
+          defaultValue={session.data?.user.email}
+          className="md:w-1/3"
+        />
+      </div>
     </div>
   );
 }
 
 function Step2() {
   return (
-    <div className="w-full h-full absolute bg-red-500 left-[100%]">
-      <h1>Step 2</h1>
+    <div className="w-full flex items-center justify-center h-full absolute left-[100%]">
+      <h2 className="font-semibold text-md text-muted-foreground">We haven't finished this yet...</h2>
     </div>
   );
 }
 
 function Step3() {
   return (
-    <div className="w-full h-full absolute bg-red-500 left-[200%]">
-      <h1>Step 3</h1>
+    <div className="w-full flex items-center justify-center h-full absolute left-[200%]">
+      <h2 className="font-semibold text-md text-muted-foreground">We haven't finished this yet...</h2>
     </div>
   );
 }
 
 function Step4() {
   return (
-    <div className="w-full h-full absolute bg-red-500 left-[300%]">
-      <h1>Step 4</h1>
+    <div className="w-full flex items-center justify-center h-full absolute left-[300%]">
+      <h2 className="font-semibold text-md text-muted-foreground">We haven't finished this yet...</h2>
     </div>
   );
 }

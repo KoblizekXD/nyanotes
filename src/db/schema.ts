@@ -15,12 +15,19 @@ export const user = pgTable("user", {
   email: text(),
   emailVerified: text(),
   image: text(),
-  finishedOnboarding: boolean(),
+  finishedOnboarding: boolean().default(false),
   createdAt: date().defaultNow(),
   updatedAt: date()
     .defaultNow()
     .$onUpdate(() => new Date().toISOString()),
 });
+
+export const userRelations = relations(user, ({ many }) => ({
+  favoriteWorks: many(work),
+  favoriteAuthors: many(author),
+  favoriteTags: many(tag),
+  notes: many(note),
+}));
 
 export const session = pgTable("session", {
   id: text().primaryKey(),

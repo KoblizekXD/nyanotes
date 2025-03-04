@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
@@ -36,6 +37,7 @@ export default function RootLayout({
         >
           <Toaster richColors />
           {children}
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
